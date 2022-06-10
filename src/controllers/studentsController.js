@@ -1,21 +1,44 @@
-const Joi = require("joi")
+const {
+  getAll,
+  createOne,
+  updateOne,
+  getUnique,
+  removeOne,
+} = require("../models/studentsDataAccess")
 
-const studentsDataAccess = require("../models/studentsDataAccess")
+exports.getAll = async (req, res) => {
+  const students = await getAll()
 
-exports.getAll = (req, res) => {}
-
-exports.getOne = (req, res) => {
-  const studentId = req.params.id
+  res.status(200).json(students)
 }
 
-exports.createOne = (req, res) => {
+exports.getOne = async (req, res) => {
+  const studentId = parseInt(req.params.id)
+
+  const message = await getUnique(studentId)
+
+  res.status(200).json(message)
+}
+
+exports.createOne = async (req, res) => {
   const { firstname, lastname, age, campus, remote } = req.body
+  const message = await createOne({ firstname, lastname, age, campus, remote })
+
+  res.status(201).json(message)
 }
 
-exports.updateOne = (req, res) => {
-  const studentId = req.params.id
+exports.updateOne = async (req, res) => {
+  const studentId = parseInt(req.params.id)
+
+  const message = await updateOne(studentId, req.body)
+
+  res.status(200).json(message)
 }
 
-exports.deleteOne = (req, res) => {
-  const studentId = req.params.id
+exports.deleteOne = async (req, res) => {
+  const studentId = parseInt(req.params.id)
+
+  const message = await removeOne(studentId)
+
+  res.status(200).json(message)
 }
