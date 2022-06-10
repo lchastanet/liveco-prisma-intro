@@ -21,8 +21,8 @@ exports.getOne = async (req, res) => {
 }
 
 exports.createOne = async (req, res) => {
-  const { firstname, lastname, age, campus, remote } = req.body
-  const message = await createOne({ firstname, lastname, age, campus, remote })
+  const { firstname, lastname, age, remote } = req.body
+  const message = await createOne({ firstname, lastname, age, remote })
 
   res.status(201).json(message)
 }
